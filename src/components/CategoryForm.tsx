@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { createOne } from '../pages/api/common';
 import { Container } from '../styles/components/CategoryForm';
 import { Input } from './Input';
 import { useForm } from 'react-hook-form';
+import { Category } from '../models/Category';
 
 interface CategoryFormProps {
   title?: string;
@@ -22,7 +22,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
   } = useForm();
 
   const handleSubmitNewCategory = async ({ name }: CreateCategoryProps) => {
-    const category = {
+    const category: Category = {
       name,
       kind: 'Humor',
     };
