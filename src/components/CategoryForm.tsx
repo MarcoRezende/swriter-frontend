@@ -1,39 +1,47 @@
-import { FormEvent, useState } from 'react';
-import { createOne, getMany } from '../pages/api/common';
+import { useState } from 'react';
+import { createOne } from '../pages/api/common';
 import { Container } from '../styles/components/CategoryForm';
 import { Input } from './Input';
+import { useForm } from 'react-hook-form';
 
 interface CategoryFormProps {
   title?: string;
 }
 
+interface CreateCategoryProps {
+  name: string;
+  kind: string;
+}
+
 export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
-  const [category, setCategory] = useState<string>('');
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-  const handleInputChange = (value: string) => {
-    setCategory(value);
-  };
-
-  const handleSubmitNewCategory = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const newCategory = {
-      name: category,
+  const handleSubmitNewCategory = async ({ name }: CreateCategoryProps) => {
+    const category = {
+      name,
       kind: 'Humor',
     };
 
-    console.log('creating -->', newCategory);
+    console.log('creating -->', category);
 
-    await createOne({ resource: 'mood', data: newCategory });
+    await createOne({ resource: 'category', data: category });
   };
 
   return (
-    <Container onSubmit={e => handleSubmitNewCategory(e)}>
+    <Container
+      autoComplete="off"
+      onSubmit={handleSubmit(handleSubmitNewCategory)}
+    >
       <div>
         <h2>{title || 'Nova Categoria'}</h2>
         <Input
           placeholder="Nome"
-          onChange={e => handleInputChange(e.target.value)}
+          register={register('name', { required: true, maxLength: 20 })}
         />
         <button type="submit">Cadastrar</button>
       </div>
