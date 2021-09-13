@@ -1,13 +1,13 @@
 import { FormEvent, useState } from 'react';
 import { createOne, getMany } from '../pages/api/common';
-import { Container } from '../styles/components/CreateCategory';
+import { Container } from '../styles/components/CategoryForm';
 import { Input } from './Input';
 
-interface CreateCategoryProps {
+interface CategoryFormProps {
   title?: string;
 }
 
-export const CreateCategory: React.FC<CreateCategoryProps> = ({ title }) => {
+export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
   const [category, setCategory] = useState<string>('');
 
   const handleInputChange = (value: string) => {
