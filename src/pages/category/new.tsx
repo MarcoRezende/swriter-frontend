@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { CategoryForm } from '../../components/CategoryForm';
-import { Container } from '../../styles/components/CategoryForm';
 
 const NewCategory: React.FC = () => {
   return (
@@ -8,9 +7,7 @@ const NewCategory: React.FC = () => {
       <Head>
         <title>Swriter | Nova categoria</title>
       </Head>
-      <Container>
-        <CategoryForm />
-      </Container>
+      <CategoryForm />
     </>
   );
 };
