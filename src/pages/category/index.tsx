@@ -1,11 +1,13 @@
 import Link from 'next/link';
 
-export const Category: React.FC = () => {
+const Category: React.FC = () => {
   return (
     <div>
-      <Link href="/new">
+      <Link href="/category/new">
         <a>Nova categoria</a>
       </Link>
     </div>
   );
 };
+
+export default Category;

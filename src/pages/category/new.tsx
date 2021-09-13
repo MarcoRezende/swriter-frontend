@@ -1,13 +1,12 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import { CategoryForm } from '../../components/CategoryForm';
 import { Container } from '../../styles/components/CategoryForm';
 
-const Home: NextPage = () => {
+const NewCategory: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Swriter | Home</title>
+        <title>Swriter | Nova categoria</title>
       </Head>
       <Container>
         <CategoryForm />
@@ -16,4 +15,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default NewCategory;
