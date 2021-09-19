@@ -3,6 +3,31 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
 
+  input {
+    border: 2px solid var(--input-blur);
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.7rem 1rem;
+    background: transparent;
+
+    transition: border-color 0.2s, color 0.2s;
+
+    &:focus {
+      outline: 0;
+      border-color: var(--input-focused);
+
+      &,
+      & + label,
+      ::placeholder {
+        color: var(--input-focused);
+      }
+    }
+
+    &[type='placeholder'] {
+      color: var(--input-blur);
+    }
+  }
+
   label {
     position: absolute;
     bottom: 100%;
@@ -14,21 +39,7 @@ export const Container = styled.div`
     color: var(--input-blur);
     font-weight: 700;
     font-size: 0.9rem;
-  }
 
-  input {
-    border: 2px solid var(--input-blur);
-    border-radius: 0.5rem;
-    width: 100%;
-    padding: 0.7rem 1rem;
-    background: transparent;
-
-    &:focus {
-      outline: 0;
-    }
-
-    &[type='placeholder'] {
-      color: var(--input-blur);
-    }
+    transition: color 0.2s;
   }
 `;
