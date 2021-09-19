@@ -2,7 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
   :root {
-    
+    --input-blur: #817f7f;
+    --text-black: #353232;
+    --background: #F2F2F2;
+    --background-secondary: #eeebeb;
   }
 
   * {
@@ -30,7 +33,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body, button, input, textarea {
-      font-family: Poppins, sans-serif;
+      font-family: Montserrat, sans-serif;
       font-weight: 400;
     }
 
