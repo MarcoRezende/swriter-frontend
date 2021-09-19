@@ -47,6 +47,12 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
           placeholder="nova categoria"
           register={register('name', { required: true, maxLength: 20 })}
         />
+
+        <Input
+          label="Tema"
+          placeholder="selecione"
+          register={register('theme', { required: true, maxLength: 20 })}
+        />
         <button type="submit">Cadastrar</button>
       </div>
     </Container>
