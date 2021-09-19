@@ -4,6 +4,9 @@ module.exports = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
+      issuer: {
+        and: [/\.(jsx|tsx)?$/],
+      },
       use: ['@svgr/webpack'],
     });
 
