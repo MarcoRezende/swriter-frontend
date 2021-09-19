@@ -14,8 +14,8 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <Container>
-      {label && <label htmlFor="">{label}</label>}
       <input {...rest} {...register} />
+      {label && <label htmlFor="">{label}</label>}
     </Container>
   );
 };
