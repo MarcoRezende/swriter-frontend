@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Container } from '../styles/pages/Home';
-import Category from './category';
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +9,7 @@ const Home: NextPage = () => {
         <title>Swriter | Home</title>
       </Head>
       <Container>
-        <Category />
+        <div />
       </Container>
     </>
   );
