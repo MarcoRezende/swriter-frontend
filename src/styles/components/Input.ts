@@ -10,13 +10,17 @@ export const Container = styled.div`
     left: 10px;
     transform: translateY(50%);
     padding: 0 0.2rem;
+
+    color: var(--input-blur);
+    font-weight: 700;
+    font-size: 0.9rem;
   }
 
   input {
     border: 2px solid var(--input-blur);
     border-radius: 0.5rem;
     width: 100%;
-    padding: 0.5rem 1rem;
+    padding: 0.7rem 1rem;
     background: transparent;
 
     &:focus {
