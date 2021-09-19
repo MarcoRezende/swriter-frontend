@@ -38,9 +38,13 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
       onSubmit={handleSubmit(handleSubmitNewCategory)}
     >
       <div>
-        <h2>{title || 'Nova Categoria'}</h2>
+        <div>
+          <h2>{title || 'Nova Categoria'}.</h2>
+          <p>Representação especifica de uma tematica.</p>
+        </div>
         <Input
-          placeholder="Nome"
+          label="Nome"
+          placeholder="nova categoria"
           register={register('name', { required: true, maxLength: 20 })}
         />
         <button type="submit">Cadastrar</button>
