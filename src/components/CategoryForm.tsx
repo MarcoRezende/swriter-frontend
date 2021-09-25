@@ -1,19 +1,15 @@
-import { createOne } from '../pages/api/common';
 import { Container } from '../styles/components/CategoryForm';
 import { Input } from './Input';
 import { useForm } from 'react-hook-form';
 import { Category } from '../models/Category';
+import { useCategory } from '../context/category';
 
 interface CategoryFormProps {
   title?: string;
 }
 
-interface CreateCategoryProps {
-  name: string;
-  kind: string;
-}
-
 export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
+  const { createOne } = useCategory();
   const {
     register,
     handleSubmit,
@@ -21,15 +17,15 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
     formState: { errors },
   } = useForm();
 
-  const handleSubmitNewCategory = async ({ name }: CreateCategoryProps) => {
+  const handleSubmitNewCategory = async ({ name, kind }: Category) => {
     const category: Category = {
       name,
-      kind: 'Humor',
+      kind,
     };
 
     console.log('creating -->', category);
 
-    await createOne({ resource: 'category', data: category });
+    await createOne(category);
   };
 
   return (
@@ -51,7 +47,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
         <Input
           label="Tema"
           placeholder="selecione"
-          register={register('theme', { required: true, maxLength: 20 })}
+          register={register('kind', { required: true, maxLength: 20 })}
         />
         <button type="submit">Cadastrar</button>
       </div>
