@@ -1,27 +1,19 @@
 import { api } from '../../config/axios';
 
-export const createOne = async ({
-  resource,
-  data,
-}: {
+interface DTO<T> {
   resource: string;
-  data: any;
-}) => {
-  return api.post(resource, data);
+  data?: Partial<T>;
+  id?: Partial<T>;
+}
+
+export const createOneBase = async <K>({ resource, data }: DTO<K>) => {
+  return api.post<K>(resource, data);
 };
 
-export const getMany = async ({ resource }: { resource: string }) => {
-  return api.get(resource);
+export const getManyBase = async <K>({ resource }: DTO<K>) => {
+  return api.get<K[]>(resource);
 };
 
-export const deleteOne = async ({
-  resource,
-  id,
-  data,
-}: {
-  resource: string;
-  id: string;
-  data: any;
-}) => {
-  return api.delete(`${resource}/${id}`, data);
+export const deleteOneBase = async <K>({ resource, id }: DTO<K>) => {
+  return api.delete<K>(`${resource}/${id}`);
 };
