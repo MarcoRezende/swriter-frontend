@@ -1,5 +1,23 @@
 import { createGlobalStyle } from 'styled-components';
 
+export type ColorTypes = 'primary' | 'secondary';
+
+const commonColors = {
+  primary: '#201B62',
+  secondary: '#575bcf',
+};
+
+export const pallette: {
+  [key: string]: {
+    [key in ColorTypes]?: string;
+  };
+} = {
+  text: {
+    primary: '#DFDFDF',
+  },
+  button: commonColors,
+};
+
 export const GlobalStyles = createGlobalStyle`
   :root {
     --input-blur: #817f7f;
