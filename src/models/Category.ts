@@ -4,5 +4,5 @@ import { Hint } from './Hint';
 export class Category extends BaseEntity<Category> {
   hint?: Hint;
   name!: string;
-  kind!: string;
+  theme!: string;
 }

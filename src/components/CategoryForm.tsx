@@ -17,10 +17,10 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
     formState: { errors },
   } = useForm();
 
-  const handleSubmitNewCategory = async ({ name, kind }: Category) => {
+  const handleSubmitNewCategory = async ({ name, theme }: Category) => {
     const category: Category = {
       name,
-      kind,
+      theme,
     };
 
     console.log('creating -->', category);
@@ -47,7 +47,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ title }) => {
         <Input
           label="Tema"
           placeholder="selecione"
-          register={register('kind', { required: true, maxLength: 20 })}
+          register={register('theme', { required: true, maxLength: 20 })}
         />
         <button type="submit">Cadastrar</button>
       </div>
