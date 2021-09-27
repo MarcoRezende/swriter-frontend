@@ -1,6 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+interface InputProps {
+  isFilled: boolean;
+  isFocused: boolean;
+}
+
+export const Container = styled.div<InputProps>`
   position: relative;
 
   input {
@@ -11,6 +16,19 @@ export const Container = styled.div`
     background: transparent;
 
     transition: border-color 0.2s, color 0.2s;
+
+    ${({ isFilled, isFocused }) =>
+      (isFilled || isFocused) &&
+      css`
+        color: var(--input-focused);
+        border-color: var(--input-focused);
+
+        &,
+        & + label,
+        ::placeholder {
+          color: var(--input-focused);
+        }
+      `}
 
     &:focus {
       outline: 0;
