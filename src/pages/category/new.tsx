@@ -9,13 +9,8 @@ import { Category } from '../../models/Category';
 
 const NewCategory: React.FC = () => {
   const { createOne } = useCategory();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-
+  const { register, handleSubmit, watch } = useForm();
+  const watchedFields = watch();
   const handleSubmitNewCategory = async ({ name, theme }: Category) => {
     const category: Category = {
       name,
@@ -39,12 +34,14 @@ const NewCategory: React.FC = () => {
       >
         <div>
           <Input
+            value={watchedFields.name}
             label="Nome"
             placeholder="nova categoria"
             register={register('name', { required: true, maxLength: 20 })}
           />
 
           <Input
+            value={watchedFields.theme}
             label="Tema"
             placeholder="selecione"
             register={register('theme', { required: true, maxLength: 20 })}
