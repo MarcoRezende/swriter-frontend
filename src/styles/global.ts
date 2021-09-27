@@ -21,7 +21,7 @@ export const pallette: {
 export const GlobalStyles = createGlobalStyle`
   :root {
     --input-blur: #817f7f;
-    --input-focused: #575bcf;
+    --input-focused: ${commonColors.primary};
     --text-black: #353232;
     --background: #F2F2F2;
     --background-secondary: #eeebeb;
