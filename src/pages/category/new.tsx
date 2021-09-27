@@ -33,7 +33,7 @@ const NewCategory: React.FC = () => {
         title="Nova categoria"
         subtitle="Representação especifica de uma tematica."
       >
-        <div>
+        <section>
           <Input
             value={watchedFields.name}
             label="Nome"
@@ -47,7 +47,7 @@ const NewCategory: React.FC = () => {
             placeholder="selecione"
             register={register('theme', { required: true, maxLength: 20 })}
           />
-        </div>
+        </section>
       </Form>
     </>
   );
