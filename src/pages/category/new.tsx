@@ -31,6 +31,7 @@ const NewCategory: React.FC = () => {
         autoComplete="off"
         onSubmit={handleSubmit(handleSubmitNewCategory)}
         title="Nova categoria"
+        subtitle="Representação especifica de uma tematica."
       >
         <div>
           <Input
