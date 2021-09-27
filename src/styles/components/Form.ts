@@ -18,12 +18,19 @@ export const Container = styled.form`
     border-radius: 1rem;
     max-width: 300px;
 
-    div {
-      margin-bottom: 2rem;
-      color: var(--text-black);
+    > div:first-child h2 {
+      font-weight: 800;
+    }
 
-      h2 {
-        font-weight: 800;
+    section,
+    > div {
+      margin-bottom: 1.5rem;
+      color: var(--text-black);
+    }
+
+    section {
+      > * + * {
+        margin-top: 1.5rem;
       }
     }
   }
