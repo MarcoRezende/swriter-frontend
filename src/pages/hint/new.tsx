@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useForm } from 'react-hook-form';
 import FormWrapper from '../../components/Form/FormWrapper';
 import { Input } from '../../components/Form/Input';
+import { Textarea } from '../../components/Form/Textarea';
 
 import { Select } from '../../components/Select';
 import { useCategory } from '../../context/category';
@@ -35,7 +36,7 @@ const NewCategory: React.FC = () => {
         subtitle="Adicione uma nova frase baseada em uma temática."
       >
         <section>
-          <Input
+          <Textarea
             value={watchedFields.name}
             label="Sentença"
             placeholder="frase ou palavra"
