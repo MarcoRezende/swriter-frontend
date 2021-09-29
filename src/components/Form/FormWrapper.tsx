@@ -1,5 +1,5 @@
 import { FormHTMLAttributes, memo } from 'react';
-import { Container } from '../styles/components/Form';
+import { Container } from '../../styles/components/Form/FormWrapper';
 import { Button } from './Button';
 
 interface FormProps extends FormHTMLAttributes<HTMLFormElement> {

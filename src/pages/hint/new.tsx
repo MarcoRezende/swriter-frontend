@@ -1,9 +1,9 @@
 import Head from 'next/head';
 
 import { useForm } from 'react-hook-form';
+import FormWrapper from '../../components/Form/FormWrapper';
+import { Input } from '../../components/Form/Input';
 
-import Form from '../../components/Form';
-import { Input } from '../../components/Input';
 import { Select } from '../../components/Select';
 import { useCategory } from '../../context/category';
 import { Category } from '../../models/Category';
@@ -28,7 +28,7 @@ const NewCategory: React.FC = () => {
       <Head>
         <title>Swriter | Nova categoria</title>
       </Head>
-      <Form
+      <FormWrapper
         autoComplete="off"
         onSubmit={handleSubmit(handleSubmitNewCategory)}
         title="Nova sentença"
@@ -67,7 +67,7 @@ const NewCategory: React.FC = () => {
             register={register('book', { required: false, maxLength: 20 })}
           />
         </section>
-      </Form>
+      </FormWrapper>
     </>
   );
 };

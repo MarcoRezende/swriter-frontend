@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, useCallback, useState } from 'react';
-import { Container } from '../styles/components/Input';
+import { Container } from '../../styles/components/Form/Input';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
