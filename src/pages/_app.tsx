@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AppProvider>
       <Component {...pageProps} />
-      <Navbar />
+      {/* <Navbar /> */}
       <GlobalStyles />
     </AppProvider>
   );
