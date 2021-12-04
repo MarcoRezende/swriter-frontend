@@ -1,10 +1,12 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
+import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
+
 import { useHint } from '../context/hint';
 import { Hint } from '../models/Hint';
-import { Container, Button, HintDetails } from '../styles/pages/Home';
-import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
+import { Button, Container, HintDetails } from '../styles/pages/Home';
+import { sortBy } from '../utils/array';
 
 const Home: NextPage = () => {
   const { randomHint, getOne } = useHint();
@@ -34,7 +36,7 @@ const Home: NextPage = () => {
 
           {hasCategories && (
             <ul>
-              {hint.categories?.map(category => (
+              {sortBy(hint.categories || [], 'name', 'name')?.map(category => (
                 <li key={category.id}>{category.name}</li>
               ))}
             </ul>
