@@ -62,6 +62,10 @@ export const GlobalStyles = createGlobalStyle`
 
     button {
       cursor: pointer;
+
+      &:hover {
+        outline: 0;
+      }
     }
 
     [disabled] {
