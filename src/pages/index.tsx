@@ -3,9 +3,8 @@ import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
 import { useHint } from '../context/hint';
 import { Hint } from '../models/Hint';
-import { Container, Button } from '../styles/pages/Home';
-
-import { BsArrowClockwise } from 'react-icons/bs';
+import { Container, Button, HintDetails } from '../styles/pages/Home';
+import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
 
 const Home: NextPage = () => {
   const { randomHint, getOne } = useHint();
@@ -28,7 +27,10 @@ const Home: NextPage = () => {
       </Head>
       <Container>
         <div>
-          <p className="sentence">{`"${hint.tip}"`}</p>
+          <p className="sentence">
+            <ImQuotesLeft style={{ verticalAlign: 'super' }} /> {hint.tip}{' '}
+            <ImQuotesRight />
+          </p>
 
           {hasCategories && (
             <ul>
@@ -38,14 +40,14 @@ const Home: NextPage = () => {
             </ul>
           )}
 
-          <div>
-            <p>{hint.author || 'Autor desconhecido'}</p>
-            <p>{hint.book || 'Origem desconhecida'}</p>
-            <p>
-              Frase gerada {hint.timesDrawn}{' '}
+          <HintDetails>
+            <p className="author">{hint.author || 'Autor desconhecido'}</p>
+            <p className="book">{hint.book || 'Origem desconhecida'}</p>
+            <p className="times-drawn">
+              Frase gerada <strong>{hint.timesDrawn} </strong>
               {hint.timesDrawn && hint.timesDrawn > 1 ? 'vezes' : 'vez'}
             </p>
-          </div>
+          </HintDetails>
         </div>
 
         <Button

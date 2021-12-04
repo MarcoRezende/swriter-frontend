@@ -27,17 +27,19 @@ export const Container = styled.main`
 
     .sentence {
       font-style: italic;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      text-align: center;
     }
 
     ul {
       list-style: none;
 
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 0.5rem;
 
-      margin: 0.5rem 0 1rem;
+      margin: 0.7rem 0 1rem;
 
       li {
         border: 1px solid #303030;
@@ -47,34 +49,34 @@ export const Container = styled.main`
         font-size: 0.9rem;
       }
     }
+  }
+`;
 
-    div:first-of-type {
-      margin-top: 1rem;
+export const HintDetails = styled.div`
+  margin-top: 1rem;
 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-      p:first-child {
-        margin-bottom: 0.3rem;
-      }
+  p.author {
+    margin-bottom: 0.3rem;
+  }
 
-      p:last-child {
-        margin: 1.5rem 0;
-        font-size: 1.1rem;
-      }
+  p.times-drawn {
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+  }
 
-      p:nth-child(-2n + 2) {
-        &::after {
-          content: '';
-          border-bottom: 1px solid #303030;
-          width: 50%;
+  p.book {
+    &::after {
+      content: '';
+      border-bottom: 1px solid #303030;
+      width: 50%;
 
-          display: block;
-          margin: 0.4rem auto 0;
-        }
-      }
+      display: block;
+      margin: 0.4rem auto 0;
     }
   }
 `;
