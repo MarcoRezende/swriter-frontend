@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             <p>{hint.book || 'Origem desconhecida'}</p>
             <p>
               Frase gerada {hint.timesDrawn}{' '}
-              {hint.timesDrawn || 2 > 1 ? 'vezes' : 'vez'}
+              {hint.timesDrawn && hint.timesDrawn > 1 ? 'vezes' : 'vez'}
             </p>
           </div>
         </div>
