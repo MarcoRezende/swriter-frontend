@@ -23,6 +23,7 @@ export const GlobalStyles = createGlobalStyle`
     --input-blur: #817f7f;
     --input-focused: ${commonColors.primary};
     --text-black: #353232;
+    --text-white: #fff;
     --background: #F2F2F2;
     --background-secondary: #eeebeb;
   }

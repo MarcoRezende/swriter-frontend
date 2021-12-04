@@ -45,8 +45,17 @@ export const Container = styled.main`
         border: 1px solid #303030;
         border-radius: 1rem;
         padding: 0.5rem 1rem;
+        position: relative;
 
         font-size: 0.9rem;
+
+        transition: color 0.2s, background 0.2s, transform 0.2s;
+
+        &:hover {
+          background: #303030;
+          color: var(--text-white);
+          transform: translateY(-3px);
+        }
       }
     }
   }
