@@ -1,9 +1,26 @@
 import { BsArrowClockwise } from 'react-icons/bs';
-import styled, { css } from 'styled-components';
-
+import { BiCopy } from 'react-icons/bi';
+import styled, { css, keyframes } from 'styled-components';
 interface ButtonProps {
   $rotate?: boolean;
+  $push?: boolean;
 }
+
+const baseButtonStyles = css`
+  margin: auto 0 2rem;
+  background: none;
+  border: 0;
+
+  cursor: pointer;
+
+  transition: transform 0.4s;
+`;
+
+const pushAnimation = keyframes`
+  50% {
+    transform: scale(0.8);
+  }
+`;
 
 export const Container = styled.main`
   height: 100vh;
@@ -16,9 +33,9 @@ export const Container = styled.main`
   flex-direction: column;
 
   font-family: Libre Baskerville;
-  color: #303030;
+  color: var(--text-black);
 
-  > div {
+  div.content {
     display: flex;
     flex: 1;
     align-items: center;
@@ -42,7 +59,7 @@ export const Container = styled.main`
       margin: 0.7rem 0 1rem;
 
       li {
-        border: 1px solid #303030;
+        border: 1px solid var(--text-black);
         border-radius: 1rem;
         padding: 0.5rem 1rem;
         position: relative;
@@ -52,12 +69,17 @@ export const Container = styled.main`
         transition: color 0.2s, background 0.2s, transform 0.2s;
 
         &:hover {
-          background: #303030;
+          background: var(--text-black);
           color: var(--text-white);
           transform: translateY(-3px);
         }
       }
     }
+  }
+
+  div.buttons {
+    gap: 0.5rem;
+    display: flex;
   }
 `;
 
@@ -81,7 +103,7 @@ export const HintDetails = styled.div`
   p.book {
     &::after {
       content: '';
-      border-bottom: 1px solid #303030;
+      border-bottom: 1px solid var(--text-black);
       width: 50%;
 
       display: block;
@@ -91,20 +113,21 @@ export const HintDetails = styled.div`
 `;
 
 export const Button = styled(BsArrowClockwise)<ButtonProps>`
-  margin: auto 0 2rem;
-  background: none;
-  border: 0;
+  ${baseButtonStyles}
 
-  cursor: pointer;
+  ${({ $rotate }) =>
+    $rotate &&
+    css`
+      transform: rotate(360deg) !important;
+    `}
+`;
 
-  transition: transform 0.4s;
+export const CopyToClipboard = styled(BiCopy)<ButtonProps>`
+  ${baseButtonStyles}
 
-  ${({ $rotate }) => {
-    return (
-      $rotate &&
-      css`
-        transform: rotate(360deg);
-      `
-    );
-  }}
+  ${({ $push }) =>
+    $push &&
+    css`
+      animation: ${pushAnimation} 0.3s linear 1;
+    `}
 `;
