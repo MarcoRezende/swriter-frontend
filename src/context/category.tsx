@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import { Category } from '../models/Category';
-import { CategoryResource } from '../pages/api/category';
+import { categoryResource } from '../pages/api/category';
 
 import { createOneBase } from '../pages/api/common';
 
@@ -17,7 +17,7 @@ export const CategoryProvider: React.FC = ({ children }) => {
     return (
       (
         await createOneBase<Category>({
-          resource: CategoryResource,
+          resource: categoryResource,
           data: category,
         })
       ).data || {}
