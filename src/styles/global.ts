@@ -26,6 +26,15 @@ export const GlobalStyles = createGlobalStyle`
     --text-white: #fff;
     --background: #F2F2F2;
     --background-secondary: #eeebeb;
+
+    --gray-200: #817e7e;
+    --gray-400: #46484B;
+    --gray-500: #3D3F43;
+    --gray-700: #35373A;
+
+    --blue-200: #6598E3;
+    --blue-700: #434C5F;
+
   }
 
   * {
@@ -67,6 +76,12 @@ export const GlobalStyles = createGlobalStyle`
       &:hover {
         outline: 0;
       }
+    }
+
+    input, fieldset {
+      border: 0;
+      background: transparent;
+      
     }
 
     [disabled] {
