@@ -6,16 +6,6 @@ interface ButtonProps {
   $push?: boolean;
 }
 
-const baseButtonStyles = css`
-  margin: auto 0 2rem;
-  background: none;
-  border: 0;
-
-  cursor: pointer;
-
-  transition: transform 0.4s;
-`;
-
 const pushAnimation = keyframes`
   50% {
     transform: scale(0.8);
@@ -33,7 +23,7 @@ export const Container = styled.main`
   flex-direction: column;
 
   font-family: Libre Baskerville;
-  color: var(--text-black);
+  color: var(--gray-100);
 
   div.content {
     display: flex;
@@ -70,7 +60,7 @@ export const Container = styled.main`
 
         &:hover {
           background: var(--text-black);
-          color: var(--text-white);
+          color: var(--gray-100);
           transform: translateY(-3px);
         }
       }
@@ -81,6 +71,17 @@ export const Container = styled.main`
     gap: 0.5rem;
     display: flex;
     position: relative;
+
+    > svg {
+      margin: auto 0 2rem;
+      background: none;
+      border: 0;
+      color: var(--gray-100);
+
+      cursor: pointer;
+
+      transition: transform 0.4s;
+    }
 
     form {
       position: absolute;
@@ -121,8 +122,6 @@ export const HintDetails = styled.div`
 `;
 
 export const Button = styled(BsArrowClockwise)<ButtonProps>`
-  ${baseButtonStyles}
-
   ${({ $rotate }) =>
     $rotate &&
     css`
@@ -131,8 +130,6 @@ export const Button = styled(BsArrowClockwise)<ButtonProps>`
 `;
 
 export const CopyToClipboard = styled(BiCopy)<ButtonProps>`
-  ${baseButtonStyles}
-
   ${({ $push }) =>
     $push &&
     css`
