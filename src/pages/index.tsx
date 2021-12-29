@@ -5,7 +5,7 @@ import toast, { Toaster, useToasterStore } from 'react-hot-toast';
 import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
 
 import { useHint } from '../context/hint';
-import { Hint } from '../models/hint.model';
+import { Hint } from '../interfaces/hint';
 import {
   Button,
   Container,

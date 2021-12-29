@@ -1,4 +1,4 @@
-import { api } from '../../config/axios';
+import { api } from '../config/axios';
 import { RequestQueryBuilder } from '@nestjsx/crud-request';
 
 interface DTO<T> {

@@ -1,33 +1,15 @@
 import { createContext, useContext } from 'react';
-import { Category } from '../models/category.model';
-import { categoryResource } from '../pages/api/category';
+import { Category } from '../interfaces/category';
 
-import { createOneBase } from '../pages/api/common';
+const RESOURCE = 'categories';
 
-export interface CategoryAPI {
-  createOne(categoryDto: Category): Promise<Category>;
-}
+export interface CategoryAPI {}
 
 export const CategoryContext = createContext<CategoryAPI>({} as CategoryAPI);
 
 export const CategoryProvider: React.FC = ({ children }) => {
-  const createOne = async (categoryDto: Category): Promise<Category> => {
-    const category = new Category(categoryDto);
-
-    return (
-      (
-        await createOneBase<Category>({
-          resource: categoryResource,
-          data: category,
-        })
-      ).data || {}
-    );
-  };
-
   return (
-    <CategoryContext.Provider value={{ createOne }}>
-      {children}
-    </CategoryContext.Provider>
+    <CategoryContext.Provider value={{}}>{children}</CategoryContext.Provider>
   );
 };
 

@@ -5,9 +5,9 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { Hint } from '../models/hint.model';
+import { Hint } from '../interfaces/hint';
 
-import { getOneBase } from '../pages/api/common';
+import { getOneBase } from '../services/common';
 
 export interface HintAPI {
   getOne(): Promise<Hint>;

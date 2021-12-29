@@ -1,5 +1,5 @@
 import { BaseEntity } from '../_common/base_entity';
-import { Category } from './category.model';
+import { Category } from './category';
 
 export class Hint extends BaseEntity<Hint> {
   tip!: string;

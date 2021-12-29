@@ -7,7 +7,7 @@ import { Textarea } from '../../components/Form/Textarea';
 
 import { Select } from '../../components/Select';
 import { useCategory } from '../../context/category';
-import { Category } from '../../models/category.model';
+import { Category } from '../../interfaces/category';
 
 const NewCategory: React.FC = () => {
   const { createOne } = useCategory();
