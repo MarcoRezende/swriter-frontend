@@ -39,7 +39,7 @@ export const styles: StylesConfig = {
   }),
   singleValue: provided => ({
     ...provided,
-    color: 'var(--text-white)',
+    color: 'var(--gray-100)',
     marginLeft: '0.5rem',
   }),
   multiValue: provided => ({
@@ -67,7 +67,7 @@ export const styles: StylesConfig = {
   menuList: provided => ({
     ...provided,
     padding: 0,
-    color: 'var(--text-white)',
+    color: 'var(--gray-100)',
   }),
   option: provided => ({
     ...provided,
@@ -85,7 +85,7 @@ export const styles: StylesConfig = {
   }),
   input: provided => ({
     ...provided,
-    color: 'var(--text-white)',
+    color: 'var(--gray-100)',
     marginLeft: '0.5rem',
   }),
   noOptionsMessage: provided => ({
