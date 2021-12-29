@@ -1,9 +1,12 @@
 import { CategoryProvider } from './category';
 import { HintProvider } from './hint';
+import { ThemeProvider } from './theme';
 
 const AppProvider: React.FC = ({ children }) => (
   <HintProvider>
-    <CategoryProvider>{children}</CategoryProvider>
+    <ThemeProvider>
+      <CategoryProvider>{children}</CategoryProvider>
+    </ThemeProvider>
   </HintProvider>
 );
 

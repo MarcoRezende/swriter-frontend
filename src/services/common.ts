@@ -1,5 +1,14 @@
 import { api } from '../config/axios';
 import { RequestQueryBuilder } from '@nestjsx/crud-request';
+import { AxiosResponse } from 'axios';
+
+interface NestPaginateResponse<Entity> {
+  count: number;
+  data: Entity[];
+  page: number;
+  pageCount: number;
+  total: number;
+}
 
 interface DTO<T> {
   resource: string;
@@ -17,7 +26,8 @@ export const getOneBase = async <K>({ resource, params }: DTO<K>) => {
 };
 
 export const getManyBase = async <K>({ resource }: DTO<K>) => {
-  return api.get<K[]>(resource);
+  return (await api.get<K[], AxiosResponse<NestPaginateResponse<K>>>(resource))
+    .data;
 };
 
 export const deleteOneBase = async <K>({ resource, id }: DTO<K>) => {

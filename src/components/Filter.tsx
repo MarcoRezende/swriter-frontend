@@ -1,13 +1,16 @@
+import { motion } from 'framer-motion';
 import { Container, Select } from '../styles/components/Filter';
+
 import { Button } from './Button';
 
 import { RiSearch2Line as SearchIcon } from 'react-icons/ri';
 import { CgClose as CloseIcon } from 'react-icons/cg';
-import { useForm } from 'react-hook-form';
 
 import { HTMLMotionProps } from 'framer-motion';
 
-import { motion } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import { useCategory } from '../context/category';
+import { useTheme } from '../context/theme';
 
 interface FormData {
   search: string;
@@ -40,6 +43,8 @@ export const Filter: React.FC<FilterProps> = ({
   ...rest
 }) => {
   const { handleSubmit, register, control, watch } = useForm();
+  const { categories } = useCategory();
+  const { themes } = useTheme();
 
   const onSubmit = (filters: FormData) => {
     let appliedFiltersLength = 0;
@@ -52,6 +57,16 @@ export const Filter: React.FC<FilterProps> = ({
 
     onFilter(filters, appliedFiltersLength);
   };
+
+  const selectCategories = categories.map(category => ({
+    label: category.name,
+    value: category.name,
+  }));
+
+  const selectThemes = themes.map(theme => ({
+    label: theme.name,
+    value: theme.name,
+  }));
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)} {...rest}>
@@ -76,7 +91,7 @@ export const Filter: React.FC<FilterProps> = ({
       <motion.fieldset variants={itemVariants}>
         <span>Categorias</span>
         <Select
-          options={[]}
+          options={selectCategories}
           register={register}
           noOptionsMessage={() => 'Nenhum valor disponível'}
           control={control}
@@ -89,7 +104,7 @@ export const Filter: React.FC<FilterProps> = ({
       <motion.fieldset variants={itemVariants}>
         <span>Tema</span>
         <Select
-          options={[]}
+          options={selectThemes}
           register={register}
           noOptionsMessage={() => 'Nenhum valor disponível'}
           control={control}
