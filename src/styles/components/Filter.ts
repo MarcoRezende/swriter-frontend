@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { Select as OuterSelect } from '../../components/Select';
 
-export const Container = styled.form`
+import { motion } from 'framer-motion';
+
+export const Container = styled(motion.form)`
   font-family: 'Poppins' !important;
 
   display: flex;

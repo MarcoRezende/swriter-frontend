@@ -60,6 +60,26 @@ const Home: NextPage = () => {
     setIsOpen(!isOpen);
   };
 
+  const variants = {
+    filterContainer: {
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          delayChildren: 0.3,
+          staggerChildren: 0.1,
+        },
+      },
+    },
+    filterItem: {
+      hidden: { y: -20, opacity: 0 },
+      visible: {
+        y: 0,
+        opacity: 1,
+      },
+    },
+  };
+
   return (
     <>
       <Head>
@@ -101,7 +121,17 @@ const Home: NextPage = () => {
             }}
           />
 
-          {isOpen && <Filter onClose={() => toggleFilter()} />}
+          <Filter
+            animate={isOpen ? 'visible' : 'hidden'}
+            variants={variants.filterContainer}
+            fieldsetMotion={{
+              variants: variants.filterItem,
+            }}
+            buttonMotion={{
+              variants: variants.filterItem,
+            }}
+            onClose={() => toggleFilter()}
+          />
 
           <FilterIcon
             onClick={() => toggleFilter()}

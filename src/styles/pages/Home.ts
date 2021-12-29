@@ -88,6 +88,8 @@ export const Container = styled.main`
       right: 50%;
       bottom: 5rem;
       transform: translateX(50%);
+
+      opacity: 0;
     }
   }
 `;

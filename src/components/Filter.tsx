@@ -5,6 +5,10 @@ import { RiSearch2Line as SearchIcon } from 'react-icons/ri';
 import { CgClose as CloseIcon } from 'react-icons/cg';
 import { useForm } from 'react-hook-form';
 
+import { HTMLMotionProps } from 'framer-motion';
+
+import { motion } from 'framer-motion';
+
 interface FormData {
   search: string;
   theme: {
@@ -17,20 +21,27 @@ interface FormData {
   }>;
 }
 
-interface FilterProps {
-  onClose(): void;
+interface FilterProps extends HTMLMotionProps<'form'> {
+  onClose?(): void;
+  fieldsetMotion?: HTMLMotionProps<'fieldset'>;
+  buttonMotion?: HTMLMotionProps<'button'>;
 }
 
-export const Filter: React.FC<FilterProps> = ({ onClose }) => {
+export const Filter: React.FC<FilterProps> = ({
+  onClose = () => {},
+  fieldsetMotion,
+  buttonMotion,
+  ...rest
+}) => {
   const { handleSubmit, register, control, watch } = useForm();
 
   const onSubmit = ({ search, theme, categories }: FormData) => {};
 
   return (
-    <Container onSubmit={handleSubmit(onSubmit)}>
+    <Container onSubmit={handleSubmit(onSubmit)} {...rest}>
       <CloseIcon size={20} onClick={() => onClose()} />
 
-      <fieldset>
+      <motion.fieldset {...fieldsetMotion}>
         <span>Filtrar</span>
         <label htmlFor="search">
           <input
@@ -44,9 +55,9 @@ export const Filter: React.FC<FilterProps> = ({ onClose }) => {
             <SearchIcon size={20} />
           </div>
         </label>
-      </fieldset>
+      </motion.fieldset>
 
-      <fieldset>
+      <motion.fieldset {...fieldsetMotion}>
         <span>Categorias</span>
         <Select
           options={[]}
@@ -57,9 +68,9 @@ export const Filter: React.FC<FilterProps> = ({ onClose }) => {
           placeholder="selecione"
           isMulti
         />
-      </fieldset>
+      </motion.fieldset>
 
-      <fieldset>
+      <motion.fieldset {...fieldsetMotion}>
         <span>Tema</span>
         <Select
           options={[]}
@@ -69,8 +80,8 @@ export const Filter: React.FC<FilterProps> = ({ onClose }) => {
           name="theme"
           placeholder="selecione"
         />
-      </fieldset>
-      <Button background={'primary'} type="submit">
+      </motion.fieldset>
+      <Button {...buttonMotion} background={'primary'} type="submit">
         Buscar
       </Button>
     </Container>

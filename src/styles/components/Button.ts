@@ -1,12 +1,13 @@
 import { darken } from 'polished';
 import styled from 'styled-components';
 import { ColorTypes, pallette } from '../global';
+import { motion } from 'framer-motion';
 
 interface ButtonProps {
   background: ColorTypes;
 }
 
-export const Container = styled.button<ButtonProps>`
+export const Container = styled(motion.button)<ButtonProps>`
   background: ${({ background }) => pallette.button[background]};
 
   padding: 0.7rem 1rem;
