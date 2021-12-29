@@ -80,6 +80,14 @@ export const Container = styled.main`
   div.buttons {
     gap: 0.5rem;
     display: flex;
+    position: relative;
+
+    form {
+      position: absolute;
+      right: 50%;
+      bottom: 5rem;
+      transform: translateX(50%);
+    }
   }
 `;
 
