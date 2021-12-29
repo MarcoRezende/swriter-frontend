@@ -1,4 +1,4 @@
-import { Container, Input, Select } from '../styles/components/Filter';
+import { Container, Select } from '../styles/components/Filter';
 import { Button } from './Button';
 
 import { RiSearch2Line as SearchIcon } from 'react-icons/ri';
@@ -33,8 +33,7 @@ export const Filter: React.FC<FilterProps> = ({ onClose }) => {
       <fieldset>
         <span>Filtrar</span>
         <label htmlFor="search">
-          <Input
-            hasValue={!!watch('search')}
+          <input
             {...register('search')}
             id="search"
             type="text"

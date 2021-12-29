@@ -1,9 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Select as OuterSelect } from '../../components/Select';
-
-interface InputProps {
-  hasValue: boolean;
-}
 
 export const Container = styled.form`
   font-family: 'Poppins' !important;
@@ -29,7 +25,7 @@ export const Container = styled.form`
     position: absolute;
     right: 20px;
     top: 20px;
-    color: var(--text-white);
+    color: var(--gray-100);
     cursor: pointer;
   }
 
@@ -40,7 +36,7 @@ export const Container = styled.form`
     > span {
       font-weight: 700;
       font-size: 1.2rem;
-      color: var(--text-white);
+      color: var(--gray-100);
       margin-bottom: 5px;
       display: block;
     }
@@ -55,12 +51,12 @@ export const Container = styled.form`
       color: var(--gray-200);
 
       input {
-        color: var(--text-white);
+        color: var(--gray-100);
         padding: 0.5rem 1rem;
         flex: 1;
 
         &:focus {
-          color: var(--text-white);
+          color: var(--gray-100);
           outline: 0;
         }
 
@@ -91,17 +87,6 @@ export const Container = styled.form`
     margin-top: 0.5rem;
     border-radius: 0.5rem;
   }
-`;
-
-export const Input = styled.input<InputProps>`
-  ${({ hasValue }) => {
-    return (
-      hasValue &&
-      css`
-        color: var(--text-white);
-      `
-    );
-  }}
 `;
 
 export const Select = styled(OuterSelect)`
