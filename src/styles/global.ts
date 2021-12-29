@@ -23,14 +23,15 @@ export const GlobalStyles = createGlobalStyle`
     --input-blur: #817f7f;
     --input-focused: ${commonColors.primary};
     --text-black: #353232;
-    --text-white: #fff;
     --background: #F2F2F2;
     --background-secondary: #eeebeb;
-
+    
+    --gray-100: #DFDFDF;
     --gray-200: #817e7e;
     --gray-400: #46484B;
     --gray-500: #3D3F43;
     --gray-700: #35373A;
+    --gray-800: #303236;
 
     --blue-200: #6598E3;
     --blue-700: #434C5F;
@@ -57,7 +58,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-      background: var(--background);
+      background: var(--gray-800);
       --webkit-font-smoothing: antialiased;
     }
 
