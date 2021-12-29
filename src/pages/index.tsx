@@ -13,6 +13,8 @@ import {
   HintDetails,
 } from '../styles/pages/Home';
 import { sortBy } from '../utils/array';
+import { HiOutlineFilter as FilterIcon } from 'react-icons/hi';
+import { Filter } from '../components/Filter';
 
 const Home: NextPage = () => {
   const { randomHint, getOne } = useHint();
@@ -94,6 +96,10 @@ const Home: NextPage = () => {
               setRotate(!rotate);
             }}
           />
+
+          <Filter />
+
+          <FilterIcon size="2rem" color="#303030" strokeWidth="0.5px" />
 
           <Toaster />
 
