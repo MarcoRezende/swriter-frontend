@@ -70,7 +70,11 @@ export const Container = styled.main`
   div.buttons {
     gap: 0.5rem;
     display: flex;
+    justify-content: center;
+
     position: relative;
+    width: 100%;
+    font-family: Poppins;
 
     > svg {
       margin: auto 0 2rem;
@@ -83,11 +87,10 @@ export const Container = styled.main`
       transition: transform 0.4s;
     }
 
-    form {
+    form,
+    & > span {
       position: absolute;
-      right: 50%;
-      bottom: 5rem;
-      transform: translateX(50%);
+      bottom: calc(0% + 5rem);
 
       opacity: 0;
     }

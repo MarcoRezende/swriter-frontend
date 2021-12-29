@@ -21,27 +21,43 @@ interface FormData {
   }>;
 }
 
+const itemVariants = {
+  hidden: { y: -20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
 interface FilterProps extends HTMLMotionProps<'form'> {
   onClose?(): void;
-  fieldsetMotion?: HTMLMotionProps<'fieldset'>;
-  buttonMotion?: HTMLMotionProps<'button'>;
+  onFilter?(filters: FormData, appliedFiltersLength: number): void;
 }
 
 export const Filter: React.FC<FilterProps> = ({
   onClose = () => {},
-  fieldsetMotion,
-  buttonMotion,
+  onFilter = () => {},
   ...rest
 }) => {
   const { handleSubmit, register, control, watch } = useForm();
 
-  const onSubmit = ({ search, theme, categories }: FormData) => {};
+  const onSubmit = (filters: FormData) => {
+    let appliedFiltersLength = 0;
+
+    for (const [, value] of Object.entries(filters)) {
+      if (value) {
+        appliedFiltersLength += 1;
+      }
+    }
+
+    onFilter(filters, appliedFiltersLength);
+  };
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)} {...rest}>
       <CloseIcon size={20} onClick={() => onClose()} />
 
-      <motion.fieldset {...fieldsetMotion}>
+      <motion.fieldset variants={itemVariants}>
         <span>Filtrar</span>
         <label htmlFor="search">
           <input
@@ -57,7 +73,7 @@ export const Filter: React.FC<FilterProps> = ({
         </label>
       </motion.fieldset>
 
-      <motion.fieldset {...fieldsetMotion}>
+      <motion.fieldset variants={itemVariants}>
         <span>Categorias</span>
         <Select
           options={[]}
@@ -70,7 +86,7 @@ export const Filter: React.FC<FilterProps> = ({
         />
       </motion.fieldset>
 
-      <motion.fieldset {...fieldsetMotion}>
+      <motion.fieldset variants={itemVariants}>
         <span>Tema</span>
         <Select
           options={[]}
@@ -81,7 +97,10 @@ export const Filter: React.FC<FilterProps> = ({
           placeholder="selecione"
         />
       </motion.fieldset>
-      <Button {...buttonMotion} background={'primary'} type="submit">
+      {/**
+       * TODO: fechar menu ao clicar
+       */}
+      <Button variants={itemVariants} background={'primary'} type="submit">
         Buscar
       </Button>
     </Container>

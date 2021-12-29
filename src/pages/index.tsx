@@ -16,6 +16,8 @@ import { sortBy } from '../utils/array';
 import { HiOutlineFilter as FilterIcon } from 'react-icons/hi';
 import { Filter } from '../components/Filter';
 
+import { motion } from 'framer-motion';
+
 const Home: NextPage = () => {
   const { randomHint, getOne } = useHint();
   const { toasts } = useToasterStore();
@@ -23,6 +25,7 @@ const Home: NextPage = () => {
   const [rotate, setRotate] = useState<boolean>(false);
   const [push, setPush] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [filtersCount, setFiltersCount] = useState(0);
 
   const hasCategories = !!hint?.categories?.length;
 
@@ -60,22 +63,48 @@ const Home: NextPage = () => {
     setIsOpen(!isOpen);
   };
 
-  const variants = {
-    filterContainer: {
-      hidden: { opacity: 0 },
-      visible: {
-        opacity: 1,
-        transition: {
-          delayChildren: 0.3,
-          staggerChildren: 0.1,
-        },
+  const onFilter = (filters: any, appliedFiltersLength: number) => {
+    setFiltersCount(appliedFiltersLength);
+  };
+
+  const appliedFiltersMessage = !filtersCount
+    ? `Nenhum filtro`
+    : `${filtersCount} ${
+        filtersCount > 1 ? 'filtros aplicados' : 'filtro aplicado'
+      }`;
+
+  const filterVariants = {
+    hidden: {
+      opacity: 0,
+      y: -30,
+      transition: {
+        duration: 0.25,
       },
     },
-    filterItem: {
-      hidden: { y: -20, opacity: 0 },
-      visible: {
-        y: 0,
-        opacity: 1,
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const filterCountVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        duration: 0.05,
+      },
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        delayChildren: 0.3,
+        staggerChildren: 0.1,
       },
     },
   };
@@ -94,6 +123,9 @@ const Home: NextPage = () => {
 
           {hasCategories && (
             <ul>
+              {/**
+               * TODO: remover logica do template
+               */}
               {sortBy(hint.categories || [], 'name', 'name')?.map(category => (
                 <li key={category.id}>{category.name}</li>
               ))}
@@ -123,15 +155,19 @@ const Home: NextPage = () => {
 
           <Filter
             animate={isOpen ? 'visible' : 'hidden'}
-            variants={variants.filterContainer}
-            fieldsetMotion={{
-              variants: variants.filterItem,
-            }}
-            buttonMotion={{
-              variants: variants.filterItem,
-            }}
+            variants={filterVariants}
             onClose={() => toggleFilter()}
+            onFilter={(filters, appliedFiltersLength) =>
+              onFilter(filters, appliedFiltersLength)
+            }
           />
+
+          <motion.span
+            animate={!isOpen ? 'visible' : 'hidden'}
+            variants={filterCountVariants}
+          >
+            {appliedFiltersMessage}
+          </motion.span>
 
           <FilterIcon
             onClick={() => toggleFilter()}
