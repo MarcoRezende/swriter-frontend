@@ -17,14 +17,18 @@ interface FormData {
   }>;
 }
 
-export const Filter: React.FC = () => {
+interface FilterProps {
+  onClose(): void;
+}
+
+export const Filter: React.FC<FilterProps> = ({ onClose }) => {
   const { handleSubmit, register, control, watch } = useForm();
 
   const onSubmit = ({ search, theme, categories }: FormData) => {};
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
-      <CloseIcon size={20} />
+      <CloseIcon size={20} onClick={() => onClose()} />
 
       <fieldset>
         <span>Filtrar</span>

@@ -22,6 +22,7 @@ const Home: NextPage = () => {
   const [hint, setHint] = useState<Hint>({} as Hint);
   const [rotate, setRotate] = useState<boolean>(false);
   const [push, setPush] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const hasCategories = !!hint?.categories?.length;
 
@@ -54,6 +55,10 @@ const Home: NextPage = () => {
       duration: 3000,
     });
   }, []);
+
+  const toggleFilter = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
@@ -89,7 +94,6 @@ const Home: NextPage = () => {
           <Button
             size="2rem"
             $rotate={rotate}
-            color="#303030"
             strokeWidth="0.5px"
             onClick={() => {
               getRandomHint();
@@ -97,15 +101,18 @@ const Home: NextPage = () => {
             }}
           />
 
-          <Filter />
+          {isOpen && <Filter onClose={() => toggleFilter()} />}
 
-          <FilterIcon size="2rem" color="#303030" strokeWidth="0.5px" />
+          <FilterIcon
+            onClick={() => toggleFilter()}
+            size="2rem"
+            strokeWidth="0.5px"
+          />
 
           <Toaster />
 
           <CopyToClipboard
             size="2rem"
-            color="#303030"
             strokeWidth="0.5px"
             onAnimationEnd={() => setPush(!push)}
             $push={push}
