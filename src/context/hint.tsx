@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { Hint } from '../models/Hint';
+import { Hint } from '../models/hint.model';
 
 import { getOneBase } from '../pages/api/common';
 

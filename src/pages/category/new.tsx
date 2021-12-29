@@ -5,7 +5,7 @@ import FormWrapper from '../../components/Form/FormWrapper';
 import { Input } from '../../components/Form/Input';
 
 import { useCategory } from '../../context/category';
-import { Category } from '../../models/Category';
+import { Category } from '../../models/category.model';
 
 const NewCategory: React.FC = () => {
   const { createOne } = useCategory();
