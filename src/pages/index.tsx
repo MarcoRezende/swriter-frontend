@@ -60,11 +60,12 @@ const Home: NextPage = () => {
   };
 
   const closeFilterOnClickOutside = (e: Event) => {
-    const target = e?.target as SVGElement;
+    const target = e?.target as HTMLElement;
 
     if (
-      target.id !== 'filterToggler' &&
-      target.parentElement?.id !== 'filterToggler'
+      !target.dataset.origin &&
+      !target.parentElement?.dataset.origin &&
+      !target.id.includes('react-select')
     ) {
       setIsOpen(false);
     }
@@ -202,6 +203,7 @@ const Home: NextPage = () => {
             onClick={() => toggleFilter()}
             size="2rem"
             strokeWidth="0.5px"
+            data-origin="filterToggler"
             id="filterToggler"
           />
 
