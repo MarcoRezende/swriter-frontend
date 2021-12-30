@@ -1,6 +1,6 @@
 import { api } from '../config/axios';
-import { RequestQueryBuilder } from '@nestjsx/crud-request';
 import { AxiosResponse } from 'axios';
+import { GenericObject } from '../interfaces/common';
 
 interface NestPaginateResponse<Entity> {
   count: number;
@@ -14,7 +14,7 @@ interface DTO<T> {
   resource: string;
   data?: Partial<T>;
   id?: Partial<T>;
-  params?: RequestQueryBuilder;
+  params?: GenericObject;
 }
 
 export const createOneBase = async <K>({ resource, data }: DTO<K>) => {
@@ -22,7 +22,7 @@ export const createOneBase = async <K>({ resource, data }: DTO<K>) => {
 };
 
 export const getOneBase = async <K>({ resource, params }: DTO<K>) => {
-  return api.get<K>(`${resource}/random`, { params: params?.queryString });
+  return api.get<K>(`${resource}/random`, { params });
 };
 
 export const getManyBase = async <K>({ resource }: DTO<K>) => {

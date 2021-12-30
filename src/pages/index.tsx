@@ -17,6 +17,7 @@ import { HiOutlineFilter as FilterIcon } from 'react-icons/hi';
 import { Filter } from '../components/Filter';
 
 import { motion } from 'framer-motion';
+import { GenericObject } from '../interfaces/common';
 
 const Home: NextPage = () => {
   const { randomHint, getOne } = useHint();
@@ -25,6 +26,7 @@ const Home: NextPage = () => {
   const [rotate, setRotate] = useState<boolean>(false);
   const [push, setPush] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [filters, setFilters] = useState<GenericObject>({} as GenericObject);
   const [filtersCount, setFiltersCount] = useState(0);
 
   const hasCategories = !!hint?.categories?.length;
@@ -42,8 +44,8 @@ const Home: NextPage = () => {
   }, [randomHint, toasts]);
 
   const getRandomHint = useCallback(async () => {
-    await getOne();
-  }, [getOne]);
+    await getOne(filters);
+  }, [getOne, filters]);
 
   const copyToClipboard = useCallback((toCopy: string) => {
     navigator.clipboard.writeText(toCopy);
@@ -63,8 +65,9 @@ const Home: NextPage = () => {
     setIsOpen(!isOpen);
   };
 
-  const onFilter = (filters: any, appliedFiltersLength: number) => {
+  const onFilter = (filters: GenericObject, appliedFiltersLength: number) => {
     setFiltersCount(appliedFiltersLength);
+    setFilters(filters);
   };
 
   const appliedFiltersMessage = !filtersCount

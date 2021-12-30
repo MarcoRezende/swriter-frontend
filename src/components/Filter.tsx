@@ -1,5 +1,5 @@
+import { RequestQueryBuilder } from '@nestjsx/crud-request';
 import { motion } from 'framer-motion';
-import { Container, Select } from '../styles/components/Filter';
 
 import { Button } from './Button';
 
@@ -12,16 +12,20 @@ import { useForm } from 'react-hook-form';
 import { useCategory } from '../context/category';
 import { useTheme } from '../context/theme';
 
+import { Container, Select } from '../styles/components/Filter';
+import { Category } from '../interfaces/category';
+
+type FilterOptions = 'search' | 'theme' | 'categories';
+
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
 interface FormData {
   search: string;
-  theme: {
-    value: string;
-    label: string;
-  };
-  categories: Array<{
-    value: string;
-    label: string;
-  }>;
+  categories: SelectOption[];
+  theme: SelectOption;
 }
 
 const itemVariants = {
@@ -34,7 +38,10 @@ const itemVariants = {
 
 interface FilterProps extends HTMLMotionProps<'form'> {
   onClose?(): void;
-  onFilter?(filters: FormData, appliedFiltersLength: number): void;
+  onFilter?(
+    filters: { [key: string]: any },
+    appliedFiltersLength: number,
+  ): void;
 }
 
 export const Filter: React.FC<FilterProps> = ({
@@ -42,20 +49,52 @@ export const Filter: React.FC<FilterProps> = ({
   onFilter = () => {},
   ...rest
 }) => {
-  const { handleSubmit, register, control, watch } = useForm();
+  const { handleSubmit, register, control } = useForm();
   const { categories } = useCategory();
   const { themes } = useTheme();
 
   const onSubmit = (filters: FormData) => {
     let appliedFiltersLength = 0;
 
-    for (const [, value] of Object.entries(filters)) {
-      if (value) {
+    const query = RequestQueryBuilder.create();
+
+    for (const [field, value] of Object.entries(filters)) {
+      if (
+        value &&
+        (typeof value === 'string' ||
+          (typeof value === 'object' && Object.keys(value).length))
+      ) {
         appliedFiltersLength += 1;
+
+        switch (field as FilterOptions) {
+          case 'search':
+            query.setFilter({
+              field: 'tip',
+              operator: '$cont',
+              value,
+            });
+            break;
+
+          case 'categories':
+            query.setFilter({
+              field: 'categories.name',
+              operator: '$in',
+              value: value.map((category: SelectOption) => category.value),
+            });
+            break;
+
+          case 'theme':
+            query.setFilter({
+              field: 'categories.theme.name',
+              operator: '$eq',
+              value: value.value,
+            });
+            break;
+        }
       }
     }
 
-    onFilter(filters, appliedFiltersLength);
+    onFilter(query.queryObject, appliedFiltersLength);
   };
 
   const selectCategories = categories.map(category => ({

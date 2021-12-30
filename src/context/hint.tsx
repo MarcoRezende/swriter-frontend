@@ -1,16 +1,11 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { GenericObject } from '../interfaces/common';
 import { Hint } from '../interfaces/hint';
 
 import { getOneBase } from '../services/common';
 
 export interface HintAPI {
-  getOne(): Promise<Hint>;
+  getOne(filters?: GenericObject): Promise<Hint>;
   randomHint: Hint;
 }
 
@@ -29,11 +24,12 @@ export const HintProvider: React.FC = ({ children }) => {
     })();
   }, []);
 
-  const getOne = async (): Promise<Hint> => {
+  const getOne = async (filters?: any): Promise<Hint> => {
     const hint =
       (
         await getOneBase<Hint>({
           resource: 'hint',
+          params: filters,
         })
       ).data || {};
 
