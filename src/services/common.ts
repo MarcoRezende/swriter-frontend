@@ -1,6 +1,7 @@
 import { api } from '../config/axios';
 import { AxiosResponse } from 'axios';
 import { GenericObject } from '../interfaces/common';
+import { errorToast } from '../utils/toast';
 
 interface NestPaginateResponse<Entity> {
   count: number;
@@ -17,19 +18,20 @@ interface DTO<T> {
   params?: GenericObject;
 }
 
-export const createOneBase = async <K>({ resource, data }: DTO<K>) => {
-  return api.post<K>(resource, data);
-};
-
 export const getOneBase = async <K>({ resource, params }: DTO<K>) => {
-  return api.get<K>(`${resource}/random`, { params });
+  try {
+    return (await api.get<K>(`${resource}/random`, { params })).data;
+  } catch {
+    errorToast('Nenhuma frase encontrada!');
+  }
 };
 
 export const getManyBase = async <K>({ resource }: DTO<K>) => {
-  return (await api.get<K[], AxiosResponse<NestPaginateResponse<K>>>(resource))
-    .data;
-};
-
-export const deleteOneBase = async <K>({ resource, id }: DTO<K>) => {
-  return api.delete<K>(`${resource}/${id}`);
+  try {
+    return (
+      await api.get<K[], AxiosResponse<NestPaginateResponse<K>>>(resource)
+    ).data;
+  } catch {
+    errorToast();
+  }
 };
