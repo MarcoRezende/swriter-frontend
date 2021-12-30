@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import toast, { Toaster, useToasterStore } from 'react-hot-toast';
 import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
 
+import get from 'lodash.get';
+
 import { useHint } from '../context/hint';
 import { Hint } from '../interfaces/hint';
 import {
@@ -19,6 +21,7 @@ import { Filter } from '../components/Filter';
 import { motion } from 'framer-motion';
 import { GenericObject } from '../interfaces/common';
 import { errorToast, successToast } from '../utils/toast';
+import { repeat } from '../utils/string';
 
 const Home: NextPage = () => {
   const { randomHint, getOne } = useHint();
@@ -62,10 +65,15 @@ const Home: NextPage = () => {
   const closeFilterOnClickOutside = (e: Event) => {
     const target = e?.target as HTMLElement;
 
+    const exceptions = repeat(3, 'parentElement')[1].every(
+      level => !get(target, level)?.classList.value.includes('multiValue'),
+    );
+
     if (
       !target.dataset.origin &&
       !target.parentElement?.dataset.origin &&
-      !target.id.includes('react-select')
+      !target.id.includes('react-select') &&
+      exceptions
     ) {
       setIsOpen(false);
     }
