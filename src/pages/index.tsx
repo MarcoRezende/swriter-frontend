@@ -61,8 +61,11 @@ const Home: NextPage = () => {
 
   const onFilter = (filters: GenericObject, appliedFiltersLength: number) => {
     setFiltersCount(appliedFiltersLength);
-    setFilters(filters);
-    getRandomHint(filters);
+
+    if (filters?.filter?.length) {
+      setFilters(filters);
+      getRandomHint(filters);
+    }
   };
 
   useEffect(() => {
