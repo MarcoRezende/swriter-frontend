@@ -10,7 +10,7 @@ export const Container = styled(motion.form)`
   flex-direction: column;
   align-items: center;
 
-  max-width: 20rem;
+  width: 20rem;
 
   padding: 2.5rem 2rem 1.5rem;
   background: ;
