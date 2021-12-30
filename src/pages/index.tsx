@@ -18,6 +18,7 @@ import { Filter } from '../components/Filter';
 
 import { motion } from 'framer-motion';
 import { GenericObject } from '../interfaces/common';
+import { errorToast, successToast } from '../utils/toast';
 
 const Home: NextPage = () => {
   const { randomHint, getOne } = useHint();
@@ -40,19 +41,19 @@ const Home: NextPage = () => {
     [getOne],
   );
 
-  const copyToClipboard = useCallback((toCopy: string) => {
-    navigator.clipboard.writeText(toCopy);
+  const copyToClipboard = useCallback(
+    (toCopy: string) => {
+      setPush(!push);
 
-    toast.success('Frase copiada!', {
-      style: {
-        fontFamily: 'Poppins',
-        background: '#303030',
-        color: '#fff',
-      },
-      position: 'top-right',
-      duration: 3000,
-    });
-  }, []);
+      if (toCopy) {
+        navigator.clipboard.writeText(toCopy);
+        return successToast('Frase copiada');
+      }
+
+      errorToast('Nada para ser copiado');
+    },
+    [push],
+  );
 
   const toggleFilter = () => {
     setIsOpen(!isOpen);
@@ -80,7 +81,7 @@ const Home: NextPage = () => {
         filtersCount > 1 ? 'filtros aplicados' : 'filtro aplicado'
       }`;
 
-  const sortedCategories = sortBy(hint.categories || [], 'name', 'name');
+  const sortedCategories = sortBy(hint?.categories || [], 'name', 'name');
 
   const filterVariants = {
     hidden: {
@@ -124,29 +125,35 @@ const Home: NextPage = () => {
         <title>Swriter | Home</title>
       </Head>
       <Container>
-        <div className="content">
-          <p className="sentence" onClick={() => copyToClipboard(hint.tip)}>
-            <ImQuotesLeft style={{ verticalAlign: 'super' }} /> {hint.tip}{' '}
-            <ImQuotesRight />
-          </p>
-
-          {hasCategories && (
-            <ul>
-              {sortedCategories.map(category => (
-                <li key={category.id}>{category.name}</li>
-              ))}
-            </ul>
-          )}
-
-          <HintDetails>
-            <p className="author">{hint.author || 'Autor desconhecido'}</p>
-            <p className="book">{hint.book || 'Origem desconhecida'}</p>
-            <p className="times-drawn">
-              Frase gerada <strong>{hint.timesDrawn} </strong>
-              {hint.timesDrawn && hint.timesDrawn > 1 ? 'vezes' : 'vez'}
+        {hint ? (
+          <div className="content">
+            <p className="sentence" onClick={() => copyToClipboard(hint.tip)}>
+              <ImQuotesLeft style={{ verticalAlign: 'super' }} /> {hint.tip}{' '}
+              <ImQuotesRight />
             </p>
-          </HintDetails>
-        </div>
+
+            {hasCategories && (
+              <ul>
+                {sortedCategories.map(category => (
+                  <li key={category.id}>{category.name}</li>
+                ))}
+              </ul>
+            )}
+
+            <HintDetails>
+              <p className="author">{hint.author || 'Autor desconhecido'}</p>
+              <p className="book">{hint.book || 'Origem desconhecida'}</p>
+              <p className="times-drawn">
+                Frase gerada <strong>{hint.timesDrawn} </strong>
+                {hint.timesDrawn && hint.timesDrawn > 1 ? 'vezes' : 'vez'}
+              </p>
+            </HintDetails>
+          </div>
+        ) : (
+          <div className="content">
+            <p>Sem dicas por agora... ¯\_(ツ)_/¯</p>
+          </div>
+        )}
 
         <div className="buttons">
           <Button
@@ -189,8 +196,7 @@ const Home: NextPage = () => {
             onAnimationEnd={() => setPush(!push)}
             $push={push}
             onClick={() => {
-              setPush(!push);
-              copyToClipboard(hint.tip);
+              copyToClipboard(hint?.tip);
             }}
           />
         </div>

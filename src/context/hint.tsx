@@ -5,7 +5,7 @@ import { Hint } from '../interfaces/hint';
 import { getOneBase } from '../services/common';
 
 export interface HintAPI {
-  getOne(filters?: GenericObject): Promise<Hint>;
+  getOne(filters?: GenericObject): Promise<Hint | undefined>;
   randomHint: Hint;
 }
 
@@ -15,27 +15,31 @@ export const HintProvider: React.FC = ({ children }) => {
   const [lastRandomHint, setLastRandomHint] = useState<Hint>({} as Hint);
 
   useEffect(() => {
-    (async () => {
+    const fetchData = async () => {
       try {
-        setLastRandomHint(await getOne());
+        const hint = (await getOne()) as Hint;
+        setLastRandomHint(hint);
       } catch (err) {
         console.error(err);
       }
-    })();
+    };
+
+    fetchData();
   }, []);
 
-  const getOne = async (filters?: any): Promise<Hint> => {
-    const hint =
-      (
-        await getOneBase<Hint>({
-          resource: 'hint',
-          params: filters,
-        })
-      ).data || {};
+  const getOne = async (filters?: any): Promise<Hint | undefined> => {
+    try {
+      const hint = (await getOneBase<Hint>({
+        resource: 'hint',
+        params: filters,
+      })) as Hint;
 
-    setLastRandomHint(hint);
+      setLastRandomHint(hint);
 
-    return hint;
+      return hint;
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
