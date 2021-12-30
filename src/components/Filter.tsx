@@ -13,7 +13,6 @@ import { useCategory } from '../context/category';
 import { useTheme } from '../context/theme';
 
 import { Container, Select } from '../styles/components/Filter';
-import { Category } from '../interfaces/category';
 
 type FilterOptions = 'search' | 'theme' | 'categories';
 
@@ -151,11 +150,14 @@ export const Filter: React.FC<FilterProps> = ({
           placeholder="selecione"
         />
       </motion.fieldset>
-      {/**
-       * TODO: fechar menu ao clicar
-       */}
-      <Button variants={itemVariants} background={'primary'} type="submit">
-        Buscar
+
+      <Button
+        onClick={() => onClose()}
+        variants={itemVariants}
+        background={'primary'}
+        type="submit"
+      >
+        Aplicar
       </Button>
     </Container>
   );

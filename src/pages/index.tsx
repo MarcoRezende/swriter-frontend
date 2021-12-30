@@ -33,19 +33,12 @@ const Home: NextPage = () => {
 
   const TOAST_LIMIT = 1;
 
-  useEffect(() => {
-    setHint(randomHint);
-
-    // toasts limiter
-    toasts
-      .filter(t => t.visible)
-      .filter((_, i) => i >= TOAST_LIMIT)
-      .forEach(t => toast.dismiss(t.id));
-  }, [randomHint, toasts]);
-
-  const getRandomHint = useCallback(async () => {
-    await getOne(filters);
-  }, [getOne, filters]);
+  const getRandomHint = useCallback(
+    async (filters: GenericObject) => {
+      await getOne(filters);
+    },
+    [getOne],
+  );
 
   const copyToClipboard = useCallback((toCopy: string) => {
     navigator.clipboard.writeText(toCopy);
@@ -68,7 +61,18 @@ const Home: NextPage = () => {
   const onFilter = (filters: GenericObject, appliedFiltersLength: number) => {
     setFiltersCount(appliedFiltersLength);
     setFilters(filters);
+    getRandomHint(filters);
   };
+
+  useEffect(() => {
+    setHint(randomHint);
+
+    // toasts limiter
+    toasts
+      .filter(t => t.visible)
+      .filter((_, i) => i >= TOAST_LIMIT)
+      .forEach(t => toast.dismiss(t.id));
+  }, [randomHint, toasts]);
 
   const appliedFiltersMessage = !filtersCount
     ? `Nenhum filtro`
@@ -151,7 +155,7 @@ const Home: NextPage = () => {
             $rotate={rotate}
             strokeWidth="0.5px"
             onClick={() => {
-              getRandomHint();
+              getRandomHint(filters);
               setRotate(!rotate);
             }}
           />
