@@ -80,6 +80,8 @@ const Home: NextPage = () => {
         filtersCount > 1 ? 'filtros aplicados' : 'filtro aplicado'
       }`;
 
+  const sortedCategories = sortBy(hint.categories || [], 'name', 'name');
+
   const filterVariants = {
     hidden: {
       opacity: 0,
@@ -130,10 +132,7 @@ const Home: NextPage = () => {
 
           {hasCategories && (
             <ul>
-              {/**
-               * TODO: remover logica do template
-               */}
-              {sortBy(hint.categories || [], 'name', 'name')?.map(category => (
+              {sortedCategories.map(category => (
                 <li key={category.id}>{category.name}</li>
               ))}
             </ul>

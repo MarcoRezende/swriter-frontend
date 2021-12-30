@@ -49,7 +49,7 @@ export const Container = styled.main`
       margin: 0.7rem 0 1rem;
 
       li {
-        border: 1px solid var(--text-black);
+        border: 1px solid var(--gray-400);
         border-radius: 1rem;
         padding: 0.5rem 1rem;
         position: relative;
@@ -59,7 +59,7 @@ export const Container = styled.main`
         transition: color 0.2s, background 0.2s, transform 0.2s;
 
         &:hover {
-          background: var(--text-black);
+          background: var(--gray-400);
           color: var(--gray-100);
           transform: translateY(-3px);
         }
