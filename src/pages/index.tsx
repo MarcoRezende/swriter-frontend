@@ -59,13 +59,25 @@ const Home: NextPage = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeFilterOnClickOutside = (e: Event) => {
+    const target = e?.target as SVGElement;
+
+    if (
+      target.id !== 'filterToggler' &&
+      target.parentElement?.id !== 'filterToggler'
+    ) {
+      setIsOpen(false);
+    }
+  };
+
   const onFilter = (filters: GenericObject, appliedFiltersLength: number) => {
     setFiltersCount(appliedFiltersLength);
 
     if (filters?.filter?.length) {
-      setFilters(filters);
       getRandomHint(filters);
     }
+
+    setFilters(filters);
   };
 
   useEffect(() => {
@@ -172,7 +184,8 @@ const Home: NextPage = () => {
           <Filter
             animate={isOpen ? 'visible' : 'hidden'}
             variants={filterVariants}
-            onClose={() => toggleFilter()}
+            toggleFilter={() => toggleFilter()}
+            closeFilter={e => closeFilterOnClickOutside(e)}
             onFilter={(filters, appliedFiltersLength) =>
               onFilter(filters, appliedFiltersLength)
             }
@@ -189,6 +202,7 @@ const Home: NextPage = () => {
             onClick={() => toggleFilter()}
             size="2rem"
             strokeWidth="0.5px"
+            id="filterToggler"
           />
 
           <Toaster />

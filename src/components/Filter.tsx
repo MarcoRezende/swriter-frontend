@@ -1,5 +1,6 @@
 import { RequestQueryBuilder } from '@nestjsx/crud-request';
 import { motion } from 'framer-motion';
+import { useDetectClickOutside } from 'react-detect-click-outside';
 
 import { Button } from './Button';
 
@@ -27,16 +28,9 @@ interface FormData {
   theme: SelectOption;
 }
 
-const itemVariants = {
-  hidden: { y: -20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-};
-
 interface FilterProps extends HTMLMotionProps<'form'> {
-  onClose?(): void;
+  closeFilter?(e: Event): void;
+  toggleFilter?(): void;
   onFilter?(
     filters: { [key: string]: any },
     appliedFiltersLength: number,
@@ -44,13 +38,23 @@ interface FilterProps extends HTMLMotionProps<'form'> {
 }
 
 export const Filter: React.FC<FilterProps> = ({
-  onClose = () => {},
+  toggleFilter = () => {},
   onFilter = () => {},
+  closeFilter = () => {},
   ...rest
 }) => {
   const { handleSubmit, register, control } = useForm();
   const { categories } = useCategory();
   const { themes } = useTheme();
+  const ref = useDetectClickOutside({ onTriggered: closeFilter });
+
+  const itemVariants = {
+    hidden: { y: -20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
 
   const onSubmit = (filters: FormData) => {
     let appliedFiltersLength = 0;
@@ -107,8 +111,8 @@ export const Filter: React.FC<FilterProps> = ({
   }));
 
   return (
-    <Container onSubmit={handleSubmit(onSubmit)} {...rest}>
-      <CloseIcon size={20} onClick={() => onClose()} />
+    <Container onSubmit={handleSubmit(onSubmit)} {...rest} ref={ref}>
+      <CloseIcon size={20} onClick={() => toggleFilter()} />
 
       <motion.fieldset variants={itemVariants}>
         <span>Filtrar</span>
@@ -152,7 +156,7 @@ export const Filter: React.FC<FilterProps> = ({
       </motion.fieldset>
 
       <Button
-        onClick={() => onClose()}
+        onClick={() => toggleFilter()}
         variants={itemVariants}
         background={'primary'}
         type="submit"
