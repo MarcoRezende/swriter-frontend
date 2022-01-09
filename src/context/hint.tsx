@@ -30,7 +30,7 @@ export const HintProvider: React.FC = ({ children }) => {
   const getOne = async (filters?: any): Promise<Hint | undefined> => {
     try {
       const hint = (await getOneBase<Hint>({
-        resource: 'hint',
+        resource: 'hint/random',
         params: filters,
       })) as Hint;
 
