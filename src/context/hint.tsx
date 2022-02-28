@@ -9,6 +9,8 @@ export interface HintAPI {
   randomHint: Hint;
 }
 
+const controller = 'app/hint';
+
 export const HintContext = createContext<HintAPI>({} as HintAPI);
 
 export const HintProvider: React.FC = ({ children }) => {
@@ -30,7 +32,7 @@ export const HintProvider: React.FC = ({ children }) => {
   const getOne = async (filters?: any): Promise<Hint | undefined> => {
     try {
       const hint = (await getOneBase<Hint>({
-        resource: 'hint/random',
+        resource: `${controller}/random`,
         params: filters,
       })) as Hint;
 

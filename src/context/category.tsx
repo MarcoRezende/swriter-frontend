@@ -2,12 +2,12 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { Category } from '../interfaces/category';
 import { getManyBase } from '../services/common';
 
-const resource = 'category';
-
 export interface CategoryAPI {
   getCategories(): Promise<Category[]>;
   categories: Category[];
 }
+
+const controller = 'app/category';
 
 export const CategoryContext = createContext<CategoryAPI>({} as CategoryAPI);
 
@@ -24,7 +24,7 @@ export const CategoryProvider: React.FC = ({ children }) => {
   }, []);
 
   const getCategories = async () => {
-    return (await getManyBase<Category>({ resource })).data;
+    return (await getManyBase<Category>({ resource: controller })).data;
   };
 
   return (

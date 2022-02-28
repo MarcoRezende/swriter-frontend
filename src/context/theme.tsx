@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { Theme } from '../interfaces/theme';
 import { getManyBase } from '../services/common';
 
-const resource = 'theme';
+const controller = 'app/theme';
 
 export interface ThemeAPI {
   getThemes(): Promise<Theme[]>;
@@ -24,7 +24,7 @@ export const ThemeProvider: React.FC = ({ children }) => {
   }, []);
 
   const getThemes = async () => {
-    return (await getManyBase<Theme>({ resource })).data;
+    return (await getManyBase<Theme>({ resource: controller })).data;
   };
 
   return (
