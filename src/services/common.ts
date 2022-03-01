@@ -26,13 +26,9 @@ export const getOneBase = async <K>({ resource, params }: DTO<K>) => {
   }
 };
 
-export const getManyBase = async <K>({
-  resource,
-}: DTO<K>): Promise<NestPaginateResponse<K>> => {
+export const getManyBase = async <K>({ resource }: DTO<K>): Promise<K> => {
   try {
-    return (
-      await api.get<K[], AxiosResponse<NestPaginateResponse<K>>>(resource)
-    ).data;
+    return (await api.get<K[], AxiosResponse<K>>(resource)).data;
   } catch {
     errorToast();
     throw new Error();
