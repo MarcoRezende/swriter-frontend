@@ -24,7 +24,7 @@ export const ThemeProvider: React.FC = ({ children }) => {
   }, []);
 
   const getThemes = async () => {
-    return (await getManyBase<Theme>({ resource: controller })).data;
+    return await getManyBase<Theme[]>({ resource: controller });
   };
 
   return (

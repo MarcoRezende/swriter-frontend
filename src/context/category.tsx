@@ -24,7 +24,7 @@ export const CategoryProvider: React.FC = ({ children }) => {
   }, []);
 
   const getCategories = async () => {
-    return (await getManyBase<Category>({ resource: controller })).data;
+    return await getManyBase<Category[]>({ resource: controller });
   };
 
   return (
